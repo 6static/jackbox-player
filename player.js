@@ -1,5 +1,5 @@
 const THEME_KEY = '_jbp_theme';
-const TWITCH_PARENT = 'jackbox-player.mpz-00.me,localhost';
+const TWITCH_PARENT = 'jackbox-player.6static.com,localhost';
 
 let currentStreamUrl = null;
 
@@ -199,7 +199,7 @@ function bindStreamInput() {
 
 function bindControls(code) {
   document.getElementById('copy-btn').addEventListener('click', () => {
-    if (code) navigator.clipboard.writeText(code).catch(() => {});
+    if (code) navigator.clipboard.writeText(code).catch(() => { });
   });
 
   document.getElementById('swap-h-btn').addEventListener('click', swapH);
