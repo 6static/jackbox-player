@@ -1,5 +1,5 @@
 const THEME_KEY = '_jbp_theme';
-const TWITCH_PARENT = 'jackbox-player.6static.com,localhost';
+const TWITCH_PARENTS = ['jackbox-player.6static.com', 'localhost'];
 
 let currentStreamUrl = null;
 
@@ -50,8 +50,9 @@ function createYouTubeEmbed(url) {
 function createTwitchEmbed(url) {
   try {
     const channel = new URL(url).pathname.split('/').filter(Boolean)[0];
+    const parents = TWITCH_PARENTS.map(d => `parent=${d}`).join('&');
     return makeIframe(
-      `https://player.twitch.tv/?channel=${encodeURIComponent(channel)}&parent=${TWITCH_PARENT}`,
+      `https://player.twitch.tv/?channel=${encodeURIComponent(channel)}&${parents}`,
       'autoplay; fullscreen'
     );
   } catch {
