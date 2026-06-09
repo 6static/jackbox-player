@@ -20,21 +20,27 @@
   </div>
 
   <div id="bottom-bar">
-    <span id="room-code-display" class="hidden"></span>
-    <button id="copy-btn" class="hidden" title="Copy room code">Copy</button>
-    <a id="jackbox-link" href="https://jackbox.tv" target="_blank" rel="noopener noreferrer" title="Open jackbox.tv in new tab">&#x2197; jackbox.tv</a>
-    <div class="spacer"></div>
-    <button id="swap-h-btn" title="Swap panes left/right">&#x21C4; Swap H</button>
-    <button id="swap-v-btn" title="Swap panes top/bottom">&#x21C5; Swap V</button>
-    <button id="reload-btn" title="Reload stream">&#x27F3; Reload</button>
-    <button id="help-btn" title="Help">?</button>
-    <button id="theme-btn" title="Toggle theme">&#x2600;&#xFE0F;</button>
+    <div id="stream-row">
+      <input id="stream-input" type="url" placeholder="Stream URL — YouTube, Twitch, .m3u8, .mp4, …" autocomplete="off" spellcheck="false">
+      <button id="stream-go-btn">Go</button>
+    </div>
+    <div id="control-row">
+      <span id="room-code-display" class="hidden"></span>
+      <button id="copy-btn" class="hidden" title="Copy room code">Copy</button>
+      <a id="jackbox-link" href="https://jackbox.tv" target="_blank" rel="noopener noreferrer" title="Open jackbox.tv in new tab">&#x2197; jackbox.tv</a>
+      <div class="spacer"></div>
+      <button id="swap-h-btn" title="Swap panes left/right">&#x21C4; Swap H</button>
+      <button id="swap-v-btn" title="Swap panes top/bottom">&#x21C5; Swap V</button>
+      <button id="reload-btn" title="Reload stream">&#x27F3; Reload</button>
+      <button id="help-btn" title="Help">?</button>
+      <button id="theme-btn" title="Toggle theme">&#x2600;&#xFE0F;</button>
+    </div>
   </div>
 
   <div id="help-overlay" class="hidden">
     <div id="help-content">
       <h2>Jackbox Player</h2>
-      <p>Add query params to the URL:</p>
+      <p>Paste a stream URL in the bar below, or add it as a query param:</p>
       <code>?code=ABCD&amp;stream=https://twitch.tv/channel</code>
       <h3>Supported streams</h3>
       <ul>
@@ -52,6 +58,10 @@
         <li><strong>Swipe left/right</strong> &mdash; swap panes on touch</li>
       </ul>
       <button id="help-close-btn">Close</button>
+      <div id="help-footer">
+        <a href="imprint.html">Imprint</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
     </div>
   </div>
 

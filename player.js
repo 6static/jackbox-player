@@ -100,24 +100,24 @@ function placeholder(msg) {
 }
 
 function loadStream(url) {
-  currentStreamUrl = url;
+  currentStreamUrl = url || null;
   const pane = document.getElementById('stream-pane');
   pane.innerHTML = '';
 
-  if (!url) {
-    pane.appendChild(placeholder('No stream URL provided.\nAdd ?stream=… to the URL.'));
+  if (!currentStreamUrl) {
+    pane.appendChild(placeholder('Paste a stream URL above and press Go.'));
     return;
   }
 
-  const type = detectStream(url);
+  const type = detectStream(currentStreamUrl);
   let el;
-  if (type === 'youtube') el = createYouTubeEmbed(url);
-  else if (type === 'twitch') el = createTwitchEmbed(url);
-  else if (type === 'hls') el = createHlsEmbed(url);
-  else if (type === 'video') el = createVideoEmbed(url);
+  if (type === 'youtube') el = createYouTubeEmbed(currentStreamUrl);
+  else if (type === 'twitch') el = createTwitchEmbed(currentStreamUrl);
+  else if (type === 'hls') el = createHlsEmbed(currentStreamUrl);
+  else if (type === 'video') el = createVideoEmbed(currentStreamUrl);
   else {
     // Unknown — attempt as generic video; show error if it fails
-    el = createVideoEmbed(url);
+    el = createVideoEmbed(currentStreamUrl);
     el.addEventListener('error', () => {
       pane.innerHTML = '';
       pane.appendChild(placeholder('Could not load stream. Unsupported or inaccessible URL.'));
@@ -179,6 +179,24 @@ function bindSwipe() {
   }, { passive: true });
 }
 
+function bindStreamInput() {
+  const input = document.getElementById('stream-input');
+  const goBtn = document.getElementById('stream-go-btn');
+
+  function applyStream() {
+    const url = input.value.trim();
+    loadStream(url || null);
+    const params = new URLSearchParams(location.search);
+    if (url) params.set('stream', url);
+    else params.delete('stream');
+    const qs = params.toString();
+    history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
+  }
+
+  goBtn.addEventListener('click', applyStream);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') applyStream(); });
+}
+
 function bindControls(code) {
   document.getElementById('copy-btn').addEventListener('click', () => {
     if (code) navigator.clipboard.writeText(code).catch(() => {});
@@ -203,8 +221,14 @@ function init() {
 
   applyTheme();
   showCode(code);
+
+  if (streamUrl) {
+    document.getElementById('stream-input').value = streamUrl;
+  }
+
   loadStream(streamUrl);
   bindControls(code);
+  bindStreamInput();
   bindSwipe();
 }
 

@@ -5,7 +5,6 @@
   --text: #dbdee1;
   --text-muted: #949ba4;
   --accent: #5865f2;
-  --bar-h: 48px;
 }
 
 .light {
@@ -86,15 +85,49 @@ body {
   white-space: pre-line;
 }
 
+/* Bottom bar — two rows */
 #bottom-bar {
-  height: var(--bar-h);
   background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-top: 1px solid var(--surface2);
+}
+
+#stream-row {
+  display: flex;
+  gap: 6px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--surface2);
+}
+
+#stream-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#stream-input:focus {
+  border-color: var(--accent);
+}
+
+#stream-input::placeholder {
+  color: var(--text-muted);
+}
+
+#control-row {
+  height: 40px;
   display: flex;
   align-items: center;
   gap: 6px;
   padding: 0 10px;
-  flex-shrink: 0;
-  border-top: 1px solid var(--surface2);
 }
 
 #room-code-display {
@@ -189,6 +222,27 @@ body {
   margin-top: 16px;
   width: 100%;
   padding: 8px !important;
+}
+
+#help-footer {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface2);
+}
+
+#help-footer a {
+  background: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+#help-footer a:hover {
+  background: none;
+  color: var(--accent);
 }
 
 /* Portrait — override horizontal swap so only vertical swap applies */
